@@ -29,10 +29,10 @@ class MainActivity : AppCompatActivity() {
 
     fun myGrape(): ArrayList<GrapeModel>{
         val grapeList = ArrayList<GrapeModel>()
-        val user1 = GrapeModel("Kishmish", "2.10")
+        val user1 = GrapeModel(1,"Kishmish", "2.10", "")
         grapeList.add(user1)
 
-        val user2 = GrapeModel("izum", "100.10")
+        val user2 = GrapeModel(2, "izum", "100.10", "")
         grapeList.add(user2)
 
         return grapeList
