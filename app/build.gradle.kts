@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    //id("org.jetbrains.kotlin.android.extensions")
 }
 
 android {
@@ -9,16 +8,12 @@ android {
     namespace = "com.example.recycleviewemptyviewactivity"
     compileSdk = 34
 
-    //viewBinding.enabled = true
-
-
     defaultConfig {
         applicationId = "com.example.recycleviewemptyviewactivity"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-        //viewBinding.enabled = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
