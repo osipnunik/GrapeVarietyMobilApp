@@ -10,18 +10,20 @@ import com.example.recycleviewemptyviewactivity.dao.GrapeDAO
 
 class DetailGrapeActivity : AppCompatActivity(){
 
-    lateinit var grapeDAO : GrapeDAO;
+    private var grapeDAO : GrapeDAO = GrapeDAO(this)//not used
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.item_grape_layoutmodel)  // Убедитесь, что target.xml находится в папке res/layout
 
+        val itemId = intent.getIntExtra("item_id", -1)
+        val description = intent.getIntExtra("description", -1)
         val content = findViewById(R.id.content) as TextView
-        content.setText("[Сорт выведен в Англии для оранжерейной культуры]")
+        content.setText(description)
 
-        val imageView = findViewById(R.id.image) as ImageView;
-        imageView.setImageResource(R.drawable.mgambur);
+        /*val imageView = findViewById(R.id.image) as ImageView;
+        imageView.setImageResource(R.drawable.mgambur);*/
         /*Glide.with(this)
             .load("https://vinograd.info/images/stories/picss/mgambur.jpg")
             .into(imageView); */

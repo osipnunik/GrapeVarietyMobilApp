@@ -5,15 +5,19 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recycleviewemptyviewactivity.adapter.GrapeAdapter
+import com.example.recycleviewemptyviewactivity.dao.GrapeDAO
 import com.example.recycleviewemptyviewactivity.databinding.ActivityMainBinding
 import com.example.recycleviewemptyviewactivity.model.GrapeModel
+import java.util.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityMainBinding
     lateinit var adapter : GrapeAdapter
     lateinit var recyclerView: RecyclerView
+    var grapeDAO : GrapeDAO = GrapeDAO(this)
 
+    lateinit var grapes : ArrayList<GrapeModel>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater )
@@ -23,19 +27,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun initialise() {
         recyclerView = binding.grape;
-        adapter = GrapeAdapter()
+        grapes = grapeDAO.getAllItems()
+        adapter = GrapeAdapter(grapes, this)
         recyclerView.adapter = adapter
-        adapter.setList(myGrape())
+        grapeDAO.initDB()
+        adapter.setList(myGrapes())
     }
 
-    fun myGrape(): ArrayList<GrapeModel>{
-        val grapeList = ArrayList<GrapeModel>()
-        val user1 = GrapeModel(1,"Kishmish", "2.10", "")
-        grapeList.add(user1)
-
-        val user2 = GrapeModel(2, "izum", "100.10", "")
-        grapeList.add(user2)
-
-        return grapeList
+    fun myGrapes(): ArrayList<GrapeModel> {
+        return grapes
     }
 }

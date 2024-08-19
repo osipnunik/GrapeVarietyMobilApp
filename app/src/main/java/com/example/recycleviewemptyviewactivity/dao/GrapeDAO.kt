@@ -7,9 +7,11 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteException
+import com.example.recycleviewemptyviewactivity.R
 import com.example.recycleviewemptyviewactivity.model.GrapeModel
 
-class GrapeDAO(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
+class GrapeDAO(private val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
+
     companion object {
         // creating a constant variables for our database.
         // below variable is for our database name.
@@ -37,7 +39,7 @@ class GrapeDAO(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
         val CREATE_GRAPES_TABLE = ("CREATE TABLE " + TABLE_NAME + "("
                 + ID_COL + " INTEGER PRIMARY KEY," + SORT_COL + " TEXT,"
                 + PRICE_COL + " TEXT,"
-                + DESCRIPTION_COL + " TEXT,"
+                + DESCRIPTION_COL + " TEXT"
                 + ")")
         db?.execSQL(CREATE_GRAPES_TABLE)
     }
@@ -52,8 +54,14 @@ class GrapeDAO(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
         return db?.execSQL(sort).toString();
     }
 
+    fun getGrapeById(db: SQLiteDatabase?, id: Int): String{
+        val GET_GRAPE = "SELECT * FROM " + TABLE_NAME +
+                "WHERE id =" + id + ")";
+        return db?.execSQL(id.toString()).toString();
+    }
+
     @SuppressLint("Range")
-    fun getAllItems():List<GrapeModel>{
+    fun getAllItems():ArrayList<GrapeModel>{
         val grapeList:ArrayList<GrapeModel> = ArrayList<GrapeModel>()
         val selectQuery = "SELECT  * FROM $TABLE_NAME"
         val db = this.readableDatabase
@@ -94,6 +102,16 @@ class GrapeDAO(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_V
         //2nd argument is String containing nullColumnHack
         db.close() // Closing database connection
         return success
+    }
+
+    public fun initDB(){
+        //println
+        val g1 = GrapeModel(1, "Мускат Гамбургский", "3.98$", context.getString(R.string.Muscat_Gamburg))
+        this.addGrape(g1)
+        val g2 = GrapeModel(2, "Кишмиш Лучистый", "4.98$", context.getString(R.string.Kishmish_Luchistiy))
+        this.addGrape(g2)
+        val g3 = GrapeModel(3, "Кодрянка", "2.32$", context.getString(R.string.Kodryanka))
+        this.addGrape(g3)
     }
 
 }

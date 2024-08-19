@@ -66,6 +66,7 @@
         app:layout_constraintTop_toBottomOf="@id/barrier2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:scrollbars = "vertical"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
