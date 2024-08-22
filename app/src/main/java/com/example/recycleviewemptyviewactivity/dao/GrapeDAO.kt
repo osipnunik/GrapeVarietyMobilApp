@@ -37,7 +37,7 @@ class GrapeDAO(private val context: Context) : SQLiteOpenHelper(context, DB_NAME
     }
     override fun onCreate(db: SQLiteDatabase?) {
         val CREATE_GRAPES_TABLE = ("CREATE TABLE " + TABLE_NAME + "("
-                + ID_COL + " INTEGER PRIMARY KEY," + SORT_COL + " TEXT,"
+                + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT," + SORT_COL + " TEXT,"
                 + PRICE_COL + " TEXT,"
                 + DESCRIPTION_COL + " TEXT"
                 + ")")
@@ -92,7 +92,7 @@ class GrapeDAO(private val context: Context) : SQLiteOpenHelper(context, DB_NAME
     fun addGrape(grape: GrapeModel):Long{
         val db = this.writableDatabase
         val contentValues = ContentValues()
-        contentValues.put(ID_COL, grape.id)
+        //contentValues.put(ID_COL, grape.id)
         contentValues.put(SORT_COL, grape.sort) // GrapeModel sort
         contentValues.put(PRICE_COL, grape.price ) // GrapeModel price
         contentValues.put(DESCRIPTION_COL, grape.description ) // GrapeModel description
@@ -106,11 +106,11 @@ class GrapeDAO(private val context: Context) : SQLiteOpenHelper(context, DB_NAME
 
     public fun initDB(){
         //println
-        val g1 = GrapeModel(1, "Мускат Гамбургский", "3.98$", context.getString(R.string.Muscat_Gamburg))
+        val g1 = GrapeModel( "Мускат Гамбургский", "3.98$", context.getString(R.string.Muscat_Gamburg))
         this.addGrape(g1)
-        val g2 = GrapeModel(2, "Кишмиш Лучистый", "4.98$", context.getString(R.string.Kishmish_Luchistiy))
+        val g2 = GrapeModel( "Кишмиш Лучистый", "4.98$", context.getString(R.string.Kishmish_Luchistiy))
         this.addGrape(g2)
-        val g3 = GrapeModel(3, "Кодрянка", "2.32$", context.getString(R.string.Kodryanka))
+        val g3 = GrapeModel( "Кодрянка", "2.32$", context.getString(R.string.Kodryanka))
         this.addGrape(g3)
     }
 

@@ -17,9 +17,18 @@ class DetailGrapeActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.item_grape_layoutmodel)  // Убедитесь, что target.xml находится в папке res/layout
 
-        val itemId = intent.getIntExtra("item_id", -1)
-        val description = intent.getIntExtra("description", -1)
-        val content = findViewById(R.id.content) as TextView
+        val itemId = intent.getIntExtra("id", -1)
+
+        val sort = intent.getStringExtra("sort")
+        var content = findViewById<TextView>(R.id.sort)
+        content.setText(sort)
+
+        val price = intent.getStringExtra("price")
+        content = findViewById<TextView>(R.id.price)
+        content.setText(price)
+
+        val description = intent.getStringExtra("description")
+        content = findViewById<TextView>(R.id.content)
         content.setText(description)
 
         /*val imageView = findViewById(R.id.image) as ImageView;

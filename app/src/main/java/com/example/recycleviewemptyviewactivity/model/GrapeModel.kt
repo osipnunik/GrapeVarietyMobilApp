@@ -1,9 +1,13 @@
 package com.example.recycleviewemptyviewactivity.model
 
-class GrapeModel (
-    val id:Int,
-    val sort:String,
-    val price:String,
-    val description:String,
-    //val image_path:String
-)
+class GrapeModel(
+    var id: Int,
+    val sort: String,
+    val price: String?,
+    val description: String?
+) {
+    // Secondary constructor without `id`
+    constructor(sort: String, price: String?, description: String?) : this(0, sort, price, description)
+
+}
+
