@@ -1,17 +1,19 @@
 package com.example.recycleviewemptyviewactivity
 
 import android.annotation.SuppressLint
+import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.recycleviewemptyviewactivity.dao.GrapeDAO
+import android.util.Log
 
 class DetailGrapeActivity : AppCompatActivity(){
 
     private var grapeDAO : GrapeDAO = GrapeDAO(this)//not used
-
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,11 +33,26 @@ class DetailGrapeActivity : AppCompatActivity(){
         content = findViewById<TextView>(R.id.content)
         content.setText(description)
 
-        /*val imageView = findViewById(R.id.image) as ImageView;
-        imageView.setImageResource(R.drawable.mgambur);*/
+        //val image = intent.getIntExtra("image", -1)
+        //Log.d("imagePath: ", image.toString())
+        Log.d("package: ", packageName)
+           val imageView: ImageView = findViewById(R.id.image)
+        val imageName: String? = intent.getStringExtra("image") // this would come from your database
+
+        val resId = resources.getIdentifier(imageName, "drawable", packageName)
+        if (resId != 0) {
+            imageView.setImageResource(resId)
+            val bitmap = BitmapFactory.decodeResource(resources, resId)
+            imageView.setImageBitmap(bitmap)
+        }
+
+        //imageView.setImageResource(R.drawable.mgambur)
+        /*val bitmap = BitmapFactory.decodeFile("res/drawable/mgambur.jpg")
+        imageView.setImageBitmap(bitmap)*/
+
         /*Glide.with(this)
-            .load("https://vinograd.info/images/stories/picss/mgambur.jpg")
-            .into(imageView); */
+            .load(this.getDrawable(image))
+            .into(imageView);*/
 
         //getSupportActionBar().setTitle("Custom Title");
         // Здесь вы можете инициализировать ваши компоненты, например:

@@ -27,10 +27,10 @@ class MainActivity : AppCompatActivity(), GrapeAdapter.RecycleViewEvent {
         initialise()
     }
 
-    /*override fun onDestroy() {
+    override fun onDestroy() {
         this.deleteDatabase("grapedb")
         super.onDestroy()
-    }*/
+    }
 
     private fun initialise() {
         recyclerView = findViewById(R.id.grape)//binding.grape;
@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity(), GrapeAdapter.RecycleViewEvent {
         intent.putExtra("sort", grape.sort)
         intent.putExtra("price", grape.price)
         intent.putExtra("description", grape.description)
+        intent.putExtra("image", grape.image)
         this.startActivity(intent)
     }
 }

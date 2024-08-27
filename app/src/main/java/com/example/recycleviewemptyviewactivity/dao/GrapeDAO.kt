@@ -34,12 +34,16 @@ class GrapeDAO(private val context: Context) : SQLiteOpenHelper(context, DB_NAME
 
         // below variable description for our grape description column.
         private val DESCRIPTION_COL = "description"
+
+        // below variable image
+        private val IMAGE_COL = "image"
     }
     override fun onCreate(db: SQLiteDatabase?) {
         val CREATE_GRAPES_TABLE = ("CREATE TABLE " + TABLE_NAME + "("
                 + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT," + SORT_COL + " TEXT,"
                 + PRICE_COL + " TEXT,"
-                + DESCRIPTION_COL + " TEXT"
+                + DESCRIPTION_COL + " TEXT,"
+                + IMAGE_COL + " TEXT"
                 + ")")
         db?.execSQL(CREATE_GRAPES_TABLE)
     }
@@ -76,13 +80,15 @@ class GrapeDAO(private val context: Context) : SQLiteOpenHelper(context, DB_NAME
         var sortName: String
         var price: String
         var description: String
+        var image: String
         if (cursor.moveToFirst()) {
             do {
                 grapeId = cursor.getInt(cursor.getColumnIndex("id"))
                 sortName = cursor.getString(cursor.getColumnIndex("sort"))
                 price = cursor.getString(cursor.getColumnIndex("price"))
                 description = cursor.getString(cursor.getColumnIndex("description"))
-                val grape= GrapeModel(grapeId, sortName, price, description)
+                image = cursor.getString(cursor.getColumnIndex("image"))
+                val grape= GrapeModel(grapeId, sortName, price, description, image)
                 grapeList.add(grape)
             } while (cursor.moveToNext())
         }
@@ -96,7 +102,7 @@ class GrapeDAO(private val context: Context) : SQLiteOpenHelper(context, DB_NAME
         contentValues.put(SORT_COL, grape.sort) // GrapeModel sort
         contentValues.put(PRICE_COL, grape.price ) // GrapeModel price
         contentValues.put(DESCRIPTION_COL, grape.description ) // GrapeModel description
-
+        contentValues.put(IMAGE_COL, grape.image ) // GrapeModel image
         // Inserting Row
         val success = db.insert(TABLE_NAME, null, contentValues)
         //2nd argument is String containing nullColumnHack
@@ -106,11 +112,11 @@ class GrapeDAO(private val context: Context) : SQLiteOpenHelper(context, DB_NAME
 
     public fun initDB(){
         //println
-        val g1 = GrapeModel( "Мускат Гамбургский", "3.98$", context.getString(R.string.Muscat_Gamburg))
+        val g1 = GrapeModel( "Мускат Гамбургский", "3.98$", context.getString(R.string.Muscat_Gamburg), "mgambur")
         this.addGrape(g1)
-        val g2 = GrapeModel( "Кишмиш Лучистый", "4.98$", context.getString(R.string.Kishmish_Luchistiy))
+        val g2 = GrapeModel( "Кишмиш Лучистый", "4.98$", context.getString(R.string.Kishmish_Luchistiy),"kishmish_luchist")
         this.addGrape(g2)
-        val g3 = GrapeModel( "Кодрянка", "2.32$", context.getString(R.string.Kodryanka))
+        val g3 = GrapeModel( "Кодрянка", "2.32$", context.getString(R.string.Kodryanka),"kodrjanka")
         this.addGrape(g3)
     }
 
