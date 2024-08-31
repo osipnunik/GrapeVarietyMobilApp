@@ -2,14 +2,14 @@ package com.example.recycleviewemptyviewactivity
 
 import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
-import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
 import com.example.recycleviewemptyviewactivity.dao.GrapeDAO
-import android.util.Log
+
 
 class DetailGrapeActivity : AppCompatActivity(){
 
@@ -31,6 +31,7 @@ class DetailGrapeActivity : AppCompatActivity(){
 
         val description = intent.getStringExtra("description")
         content = findViewById<TextView>(R.id.content)
+        content.setMovementMethod(ScrollingMovementMethod())
         content.setText(description)
 
         //val image = intent.getIntExtra("image", -1)
