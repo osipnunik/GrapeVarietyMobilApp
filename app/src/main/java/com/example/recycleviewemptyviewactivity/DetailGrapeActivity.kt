@@ -31,8 +31,8 @@ class DetailGrapeActivity : AppCompatActivity(){
 
         val description = intent.getStringExtra("description")
         content = findViewById<TextView>(R.id.content)
-        content.setMovementMethod(ScrollingMovementMethod())
         content.setText(description)
+        content.setMovementMethod(ScrollingMovementMethod())
 
         //val image = intent.getIntExtra("image", -1)
         //Log.d("imagePath: ", image.toString())

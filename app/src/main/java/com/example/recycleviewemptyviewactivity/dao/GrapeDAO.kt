@@ -114,9 +114,9 @@ class GrapeDAO(private val context: Context) : SQLiteOpenHelper(context, DB_NAME
         //println
         val g1 = GrapeModel( "Мускат Гамбургский", "3.98$", context.getString(R.string.Muscat_Gamburg), "mgambur")
         this.addGrape(g1)
-        val g2 = GrapeModel( "Кишмиш Лучистый", "4.98$", context.getString(R.string.Kishmish_Luchistiy),"kishmish_luchist")
+        val g2 = GrapeModel( "Кишмиш Лучистый", "4.98$", context.getString(R.string.Kishmish_Luchistiy),"kishmish_lychistyi420w")
         this.addGrape(g2)
-        val g3 = GrapeModel( "Кодрянка", "2.32$", context.getString(R.string.Kodryanka),"kodrjanka")
+        val g3 = GrapeModel( "Кодрянка", "2.32$", context.getString(R.string.Kodryanka),"kodrjankapng320420")
         this.addGrape(g3)
     }
 
