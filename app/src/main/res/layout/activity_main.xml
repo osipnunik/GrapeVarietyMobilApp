@@ -16,7 +16,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        android:gravity="center_horizontal"
+        android:background="@color/whiteblue"
         tools:listitem="@layout/item_grape_layoutmodel" />
 
 
