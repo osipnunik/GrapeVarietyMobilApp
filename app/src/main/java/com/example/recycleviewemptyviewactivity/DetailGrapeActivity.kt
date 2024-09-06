@@ -39,7 +39,9 @@ class DetailGrapeActivity : AppCompatActivity(){
         Log.d("package: ", packageName)
            val imageView: ImageView = findViewById(R.id.image)
         val imageName: String? = intent.getStringExtra("image") // this would come from your database
-
+        if (imageName != null) {
+            Log.d("imagePath: ", imageName)
+        }
         val resId = resources.getIdentifier(imageName, "drawable", packageName)
         if (resId != 0) {
             imageView.setImageResource(resId)
