@@ -2,12 +2,15 @@ package com.example.recycleviewemptyviewactivity
 
 import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.drawToBitmap
 import com.example.recycleviewemptyviewactivity.dao.GrapeDAO
 
 
@@ -37,30 +40,43 @@ class DetailGrapeActivity : AppCompatActivity(){
         //val image = intent.getIntExtra("image", -1)
         //Log.d("imagePath: ", image.toString())
         Log.d("package: ", packageName)
-           val imageView: ImageView = findViewById(R.id.image)
-        val imageName: String? = intent.getStringExtra("image") // this would come from your database
-        if (imageName != null) {
-            Log.d("imagePath: ", imageName)
-        }
+        val imageView: ImageView = findViewById(R.id.image)
+        /*val imageName: String? =
+        intent.getStringExtra("image") // this would come from your database
         val resId = resources.getIdentifier(imageName, "drawable", packageName)
-        if (resId != 0) {
-            imageView.setImageResource(resId)
+        imageView.setBackgroundResource(resId)*/
+
+        /*if (resId != 0) {
+            imageView.setBackgroundResource(resId)
             val bitmap = BitmapFactory.decodeResource(resources, resId)
             imageView.setImageBitmap(bitmap)
+        }*/
+        val imageName: String? = intent.getStringExtra("image") // Получаем имя изображения из интента
+        val resId = resources.getIdentifier(imageName, "drawable", packageName)
+
+        if (resId != 0) {
+            imageView.setImageResource(resId) // Меняем изображение
         }
+        var isPicture: Boolean = true
+        imageView.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                if (!isPicture) {
+                    val imageName: String? = intent.getStringExtra("image") // Получаем имя изображения из интента
+                    val resId = resources.getIdentifier(imageName, "drawable", packageName)
 
-        //imageView.setImageResource(R.drawable.mgambur)
-        /*val bitmap = BitmapFactory.decodeFile("res/drawable/mgambur.jpg")
-        imageView.setImageBitmap(bitmap)*/
+                    if (resId != 0) {
+                        (v as ImageView).setImageResource(resId) // Меняем изображение
+                    }
+                    content.maxLines=content.maxLines/2
+                } else {
+                    (v as ImageView).setBackgroundResource(0)
+                    content.maxLines=content.maxLines*2
+                    (v as ImageView).setImageResource(R.drawable.icons_arrow_down) // Возвращаем иконку
+                }
+                isPicture = !isPicture // Переключаем значение переменной
+            }
+        })
 
-        /*Glide.with(this)
-            .load(this.getDrawable(image))
-            .into(imageView);*/
-
-        //getSupportActionBar().setTitle("Custom Title");
-        // Здесь вы можете инициализировать ваши компоненты, например:
-        // val textView: TextView = findViewById(R.id.textView)
-        // textView.text = "Hello from TargetActivity"
     }
 
 }
