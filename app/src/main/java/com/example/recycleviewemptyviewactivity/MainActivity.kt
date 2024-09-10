@@ -28,21 +28,20 @@ class MainActivity : AppCompatActivity(), GrapeAdapter.RecycleViewEvent {
     }
 
     override fun onDestroy() {
-        this.deleteDatabase("grapedb")
+        this.deleteDatabase("grapedb");
         super.onDestroy()
     }
 
     private fun initialise() {
         recyclerView = findViewById(R.id.grape)//binding.grape;
-        grapeDAO.initDB()
+        if(grapeDAO.isEmpty()) {
+            grapeDAO.initDB()  //insert data
+        }
         grapes = grapeDAO.getAllItems()
         adapter = GrapeAdapter(grapes, this )
         recyclerView.adapter = adapter
-        adapter.setList(myGrapes())
-    }
-
-    fun myGrapes(): ArrayList<GrapeModel> {
-        return grapes
+        Log.d("listSize", "lisy size is: "+grapes.size)
+        adapter.setList(grapes)
     }
 
     override fun onItemClick(position: Int) {
@@ -53,7 +52,7 @@ class MainActivity : AppCompatActivity(), GrapeAdapter.RecycleViewEvent {
         val intent = Intent(this, DetailGrapeActivity::class.java)
         intent.putExtra("id", grape.id)
         intent.putExtra("sort", grape.sort)
-        intent.putExtra("price", grape.price)
+        intent.putExtra("fav", grape.fav)
 
         intent.putExtra("description", grapeDet?.description)
         intent.putExtra("image", grapeDet?.image)

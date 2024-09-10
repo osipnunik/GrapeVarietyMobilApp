@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -21,8 +22,8 @@ import com.example.recycleviewemptyviewactivity.model.GrapeModel
 
 class GrapeAdapter(private val itemList: List<GrapeModel>, private val listener: RecycleViewEvent/*val context: Context*/) : RecyclerView.Adapter<GrapeAdapter.GrapeViewHolder>() {
 
-    private var grapeList = emptyList<GrapeModel>()
-
+    public var grapeList = emptyList<GrapeModel>()
+    get() = field
     //private var grapeDAO : GrapeDAO = GrapeDAO(context)
     inner class GrapeViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener{
 
@@ -50,7 +51,8 @@ class GrapeAdapter(private val itemList: List<GrapeModel>, private val listener:
 
     override fun onBindViewHolder(holder: GrapeViewHolder, position: Int) {
         holder.itemView.findViewById<TextView>(R.id.sort).text = grapeList[position].sort
-        holder.itemView.findViewById<TextView>(R.id.price).text = grapeList[position].price
+        holder.itemView.findViewById<CheckBox>(R.id.fav).isChecked = (grapeList[position].fav == 1)
+        holder.itemView.findViewById<CheckBox>(R.id.fav).isClickable = false;
     }
 
     fun setList(list: List<GrapeModel>){

@@ -35,8 +35,8 @@ class GrapeDAO(private val context: Context) : SQLiteOpenHelper(context, DB_NAME
         // below variable is for our sort name column
         private val SORT_COL = "sort"
 
-        // below variable id for our grape price column.
-        private val PRICE_COL = "price"
+        // below variable id for our grape fav column.
+        private val FAV_COL = "fav"
 
         // below variable description for our grape description column.
         private val DESCRIPTION_COL = "description"
@@ -48,12 +48,12 @@ class GrapeDAO(private val context: Context) : SQLiteOpenHelper(context, DB_NAME
     }
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL("PRAGMA foreign_keys = ON;")
-        val CREATE_GRAPES_TABLE = ("CREATE TABLE " + TABLE_NAME + "("
+        val CREATE_GRAPES_TABLE = ("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "("
                 + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + SORT_COL + " TEXT,"
-                + PRICE_COL + " TEXT);")
+                + FAV_COL + " INTEGER);")
         db?.execSQL(CREATE_GRAPES_TABLE)
-        val CREATE_GRAPES_DETAIL = ("CREATE TABLE " + TABLE_DETAIL_NAME + "("
+        val CREATE_GRAPES_DETAIL = ("CREATE TABLE IF NOT EXISTS " + TABLE_DETAIL_NAME + "("
                 + ID_DET_COL + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + DESCRIPTION_COL + " TEXT,"
                 + IMAGE_COL + " TEXT,"
@@ -67,11 +67,18 @@ class GrapeDAO(private val context: Context) : SQLiteOpenHelper(context, DB_NAME
         // Оставляем этот метод пустым, если обновление базы данных не требуется
     }
 
+    fun flipFlopFavoritesGrape(id: Int){
+        Log.d("favCheckboxDebug: ", " checkboxDebug favorite flipflop db in")
+        val query = "UPDATE $TABLE_NAME SET $FAV_COL = CASE $FAV_COL WHEN 0 THEN 1 ELSE 0 END WHERE id=$id"
+        val db = this.readableDatabase
+        db?.execSQL(query);
+    }
+
     fun getGrapeBySort(db: SQLiteDatabase?, sort: String): GrapeModel{
         val GET_GRAPE = "SELECT * FROM " + TABLE_NAME +
                 "WHERE sort =" + sort + ")";
         db?.execSQL(GET_GRAPE, null);
-        return GrapeModel("", "")
+        return GrapeModel("", 0)
     }
 
     fun getGrapeById(id: Int): GrapeModel?{
@@ -82,7 +89,7 @@ class GrapeDAO(private val context: Context) : SQLiteOpenHelper(context, DB_NAME
             val grape = GrapeModel(
                 id = cursor.getInt(cursor.getColumnIndexOrThrow(ID_COL)),
                 sort = cursor.getString(cursor.getColumnIndexOrThrow(SORT_COL)),
-                price = cursor.getString(cursor.getColumnIndexOrThrow(PRICE_COL))
+                fav = cursor.getInt(cursor.getColumnIndexOrThrow(FAV_COL))
             )
             cursor.close()
             grape
@@ -124,13 +131,13 @@ class GrapeDAO(private val context: Context) : SQLiteOpenHelper(context, DB_NAME
         }
         var grapeId: Int
         var sortName: String
-        var price: String
+        var fav: Int
         if (cursor.moveToFirst()) {
             do {
                 grapeId = cursor.getInt(cursor.getColumnIndex("id"))
                 sortName = cursor.getString(cursor.getColumnIndex("sort"))
-                price = cursor.getString(cursor.getColumnIndex("price"))
-                val grape = GrapeModel(grapeId, sortName, price)
+                fav = cursor.getInt(cursor.getColumnIndex("fav"))
+                val grape = GrapeModel(grapeId, sortName, fav)
                 grapeList.add(grape)
             } while (cursor.moveToNext())
         }
@@ -151,7 +158,7 @@ class GrapeDAO(private val context: Context) : SQLiteOpenHelper(context, DB_NAME
         val detailContentValues = ContentValues()
 
         grapeContentValues.put(SORT_COL, grape.sort) // GrapeModel sort
-        grapeContentValues.put(PRICE_COL, grape.price) // GrapeModel price
+        grapeContentValues.put(FAV_COL, grape.fav) // GrapeModel fav
         detailContentValues.put(DESCRIPTION_COL, grapeDetail.description) // GrapeDetailModel description
         detailContentValues.put(IMAGE_COL, grapeDetail.image) // GrapeDetailModel image
 
@@ -176,15 +183,29 @@ class GrapeDAO(private val context: Context) : SQLiteOpenHelper(context, DB_NAME
 
     public fun initDB(){
         //println
-        val g1 = GrapeModel( "Мускат Гамбургский", "3.98$")
+        val g1 = GrapeModel( "Мускат Гамбургский")
         val det1 = GrapeDetail(context.getString(R.string.Muscat_Gamburg), "mgambur")
         this.addGrape(g1, det1)
-        val g2 = GrapeModel( "Кишмиш Лучистый", "4.98$")
+        val g2 = GrapeModel( "Кишмиш Лучистый")
         val det2 = GrapeDetail(context.getString(R.string.Kishmish_Luchistiy),"kishmish_lychistyi420w")
         this.addGrape(g2, det2)
-        val g3 = GrapeModel( "Кодрянка", "2.32$")
+        val g3 = GrapeModel( "Кодрянка")
         val det3 = GrapeDetail(context.getString(R.string.Kodryanka),"kodrjankapng320420")
         this.addGrape(g3, det3)
+    }
+
+    fun isEmpty(): Boolean {
+        val QUERY = "SELECT COUNT() FROM $TABLE_NAME"
+        val db = readableDatabase
+        val cursor = db.rawQuery(QUERY, null)
+        var isEmpty: Boolean = false
+        if (cursor.moveToFirst()) {
+            // Get the count from the first column
+            val count = cursor.getInt(0)
+            isEmpty = count == 0
+        }
+        cursor.close()
+        return isEmpty
     }
 
 }

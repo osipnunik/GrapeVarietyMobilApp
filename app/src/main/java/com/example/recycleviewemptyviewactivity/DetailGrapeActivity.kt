@@ -7,8 +7,10 @@ import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.View
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.drawToBitmap
 import com.example.recycleviewemptyviewactivity.dao.GrapeDAO
@@ -28,9 +30,16 @@ class DetailGrapeActivity : AppCompatActivity(){
         var content = findViewById<TextView>(R.id.sort)
         content.setText(sort)
 
-        val price = intent.getStringExtra("price")
-        content = findViewById<TextView>(R.id.price)
-        content.setText(price)
+        content = findViewById<CheckBox>(R.id.fav)
+        val fav = intent.getIntExtra("fav", -1)
+        (content as CheckBox).isChecked = (fav == 1)
+        content.setOnClickListener(object : View.OnClickListener {
+                override fun onClick(v: View?) {
+                    grapeDAO.flipFlopFavoritesGrape(itemId)
+                    Toast.makeText(getApplicationContext(),"избранность сорта $sort изменена", Toast.LENGTH_LONG).show();
+                    MainActivity().recreate()
+                }
+            })
 
         val description = intent.getStringExtra("description")
         content = findViewById<TextView>(R.id.content)
@@ -76,7 +85,5 @@ class DetailGrapeActivity : AppCompatActivity(){
                 isPicture = !isPicture // Переключаем значение переменной
             }
         })
-
     }
-
 }
