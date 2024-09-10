@@ -12,8 +12,8 @@ import com.example.recycleviewemptyviewactivity.R
 import com.example.recycleviewemptyviewactivity.model.GrapeDetail
 import com.example.recycleviewemptyviewactivity.model.GrapeModel
 
-class GrapeDAO(private val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
-
+class GrapeDAO(val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
+    private var dbDataInserter: DBDataInserter = DBDataInserter(this)
     companion object {
         // creating a constant variables for our database.
         // below variable is for our database name.
@@ -182,16 +182,7 @@ class GrapeDAO(private val context: Context) : SQLiteOpenHelper(context, DB_NAME
     }
 
     public fun initDB(){
-        //println
-        val g1 = GrapeModel( "Мускат Гамбургский")
-        val det1 = GrapeDetail(context.getString(R.string.Muscat_Gamburg), "mgambur")
-        this.addGrape(g1, det1)
-        val g2 = GrapeModel( "Кишмиш Лучистый")
-        val det2 = GrapeDetail(context.getString(R.string.Kishmish_Luchistiy),"kishmish_lychistyi420w")
-        this.addGrape(g2, det2)
-        val g3 = GrapeModel( "Кодрянка")
-        val det3 = GrapeDetail(context.getString(R.string.Kodryanka),"kodrjankapng320420")
-        this.addGrape(g3, det3)
+        dbDataInserter.insertData()
     }
 
     fun isEmpty(): Boolean {
