@@ -27,11 +27,6 @@ class MainActivity : AppCompatActivity(), GrapeAdapter.RecycleViewEvent {
         initialise()
     }
 
-    override fun onDestroy() {
-        this.deleteDatabase("grapedb");
-        super.onDestroy()
-    }
-
     private fun initialise() {
         recyclerView = findViewById(R.id.grape)//binding.grape;
         if(grapeDAO.isEmpty()) {

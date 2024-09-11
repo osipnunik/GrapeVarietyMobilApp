@@ -14,7 +14,7 @@ class DBDataInserter(val grapeDAO: GrapeDAO) {
         val det2 = GrapeDetail(grapeDAO.context.getString(R.string.Kishmish_Luchistiy),"kishmish_lychistyi420w")
         grapeDAO.addGrape(g2, det2)
         val g3 = GrapeModel( "Кодрянка")
-        val det3 = GrapeDetail(grapeDAO.context.getString(R.string.Kodryanka),"kodrjankapng320420")
+        val det3 = GrapeDetail(grapeDAO.context.getString(R.string.Kodryanka),"kodryanka")
         grapeDAO.addGrape(g3, det3)
         val g4 = GrapeModel( "Аркадия")
         val det4 = GrapeDetail(grapeDAO.context.getString(R.string.arkadia),"arkadia")
