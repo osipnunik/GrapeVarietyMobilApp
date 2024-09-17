@@ -35,15 +35,12 @@ class MainActivity : AppCompatActivity(), GrapeAdapter.RecycleViewEvent {
         grapes = grapeDAO.getAllItems()
         adapter = GrapeAdapter(grapes, this )
         recyclerView.adapter = adapter
-        Log.d("listSize", "lisy size is: "+grapes.size)
         adapter.setList(grapes)
     }
 
     override fun onItemClick(position: Int) {
         val grape = grapes[position]
         val grapeDet: GrapeDetail? = grapeDAO.getGrapeDetailByGrapeId(grape.id)
-        Log.i("debugging, started to work", "Table exists"+grapeDAO.isDetailTableExists())
-        //Toast.makeText(this, grape.sort, Toast.LENGTH_SHORT).show()
         val intent = Intent(this, DetailGrapeActivity::class.java)
         intent.putExtra("id", grape.id)
         intent.putExtra("sort", grape.sort)
