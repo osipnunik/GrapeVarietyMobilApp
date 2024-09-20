@@ -1,15 +1,14 @@
-package com.example.recycleviewemptyviewactivity
+package com.akopiants.recycleviewemptyviewactivity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recycleviewemptyviewactivity.adapter.GrapeAdapter
-import com.example.recycleviewemptyviewactivity.dao.GrapeDAO
-import com.example.recycleviewemptyviewactivity.databinding.ActivityMainBinding
-import com.example.recycleviewemptyviewactivity.model.GrapeDetail
-import com.example.recycleviewemptyviewactivity.model.GrapeModel
+import com.akopiants.recycleviewemptyviewactivity.adapter.GrapeAdapter
+import com.akopiants.recycleviewemptyviewactivity.dao.GrapeDAO
+import com.akopiants.recycleviewemptyviewactivity.databinding.ActivityMainBinding
+import com.akopiants.recycleviewemptyviewactivity.model.GrapeDetail
+import com.akopiants.recycleviewemptyviewactivity.model.GrapeModel
 import java.util.ArrayList
 
 class MainActivity : AppCompatActivity(), GrapeAdapter.RecycleViewEvent {

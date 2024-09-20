@@ -1,4 +1,4 @@
-package com.example.recycleviewemptyviewactivity
+package com.akopiants.recycleviewemptyviewactivity
 
 import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
@@ -13,7 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.drawToBitmap
-import com.example.recycleviewemptyviewactivity.dao.GrapeDAO
+import com.akopiants.recycleviewemptyviewactivity.dao.GrapeDAO
 
 
 class DetailGrapeActivity : AppCompatActivity(){

@@ -5,15 +5,15 @@ plugins {
 
 android {
 
-    namespace = "com.example.recycleviewemptyviewactivity"
+    namespace = "com.akopiants.recycleviewemptyviewactivity"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.recycleviewemptyviewactivity"
+        applicationId = "com.akopiants.recycleviewemptyviewactivity"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 5
+        versionName = "5.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

@@ -1,7 +1,7 @@
-package com.example.recycleviewemptyviewactivity
+package com.akopiants.recycleviewemptyviewactivity
 
 import android.app.Application
-import com.example.recycleviewemptyviewactivity.dao.GrapeDAO
+import com.akopiants.recycleviewemptyviewactivity.dao.GrapeDAO
 
 class App : Application() {
     //lateinit var grapeDAO: GrapeDAO

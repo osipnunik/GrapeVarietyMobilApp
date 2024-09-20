@@ -1,4 +1,4 @@
-package com.example.recycleviewemptyviewactivity.adapter
+package com.akopiants.recycleviewemptyviewactivity.adapter
 
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -15,10 +15,10 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recycleviewemptyviewactivity.DetailGrapeActivity
-import com.example.recycleviewemptyviewactivity.R
-import com.example.recycleviewemptyviewactivity.dao.GrapeDAO
-import com.example.recycleviewemptyviewactivity.model.GrapeModel
+import com.akopiants.recycleviewemptyviewactivity.DetailGrapeActivity
+import com.akopiants.recycleviewemptyviewactivity.R
+import com.akopiants.recycleviewemptyviewactivity.dao.GrapeDAO
+import com.akopiants.recycleviewemptyviewactivity.model.GrapeModel
 
 class GrapeAdapter(private val itemList: List<GrapeModel>, private val listener: RecycleViewEvent/*val context: Context*/) : RecyclerView.Adapter<GrapeAdapter.GrapeViewHolder>() {
 

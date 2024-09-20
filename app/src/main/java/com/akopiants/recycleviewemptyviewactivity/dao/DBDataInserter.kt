@@ -1,8 +1,8 @@
-package com.example.recycleviewemptyviewactivity.dao
+package com.akopiants.recycleviewemptyviewactivity.dao
 
-import com.example.recycleviewemptyviewactivity.R
-import com.example.recycleviewemptyviewactivity.model.GrapeDetail
-import com.example.recycleviewemptyviewactivity.model.GrapeModel
+import com.akopiants.recycleviewemptyviewactivity.R
+import com.akopiants.recycleviewemptyviewactivity.model.GrapeDetail
+import com.akopiants.recycleviewemptyviewactivity.model.GrapeModel
 
 class DBDataInserter(val grapeDAO: GrapeDAO) {
 

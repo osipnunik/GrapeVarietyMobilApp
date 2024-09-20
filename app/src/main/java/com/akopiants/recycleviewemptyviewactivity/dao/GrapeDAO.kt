@@ -1,4 +1,4 @@
-package com.example.recycleviewemptyviewactivity.dao
+package com.akopiants.recycleviewemptyviewactivity.dao
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,9 +8,9 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteException
 import android.util.Log
-import com.example.recycleviewemptyviewactivity.R
-import com.example.recycleviewemptyviewactivity.model.GrapeDetail
-import com.example.recycleviewemptyviewactivity.model.GrapeModel
+import com.akopiants.recycleviewemptyviewactivity.R
+import com.akopiants.recycleviewemptyviewactivity.model.GrapeDetail
+import com.akopiants.recycleviewemptyviewactivity.model.GrapeModel
 
 class GrapeDAO(val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
     private var dbDataInserter: DBDataInserter = DBDataInserter(this)

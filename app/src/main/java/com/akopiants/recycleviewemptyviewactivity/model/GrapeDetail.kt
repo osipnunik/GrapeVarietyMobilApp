@@ -1,4 +1,4 @@
-package com.example.recycleviewemptyviewactivity.model
+package com.akopiants.recycleviewemptyviewactivity.model
 
 class GrapeDetail (
     var id: Int,
