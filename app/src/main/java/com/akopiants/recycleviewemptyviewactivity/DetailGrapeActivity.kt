@@ -37,7 +37,6 @@ class DetailGrapeActivity : AppCompatActivity(){
                 override fun onClick(v: View?) {
                     grapeDAO.flipFlopFavoritesGrape(itemId)
                     Toast.makeText(getApplicationContext(),"избранность сорта $sort изменена", Toast.LENGTH_LONG).show();
-                    MainActivity().recreate()
                 }
             })
 
