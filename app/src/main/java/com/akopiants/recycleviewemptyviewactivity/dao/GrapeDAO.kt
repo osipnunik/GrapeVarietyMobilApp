@@ -1,14 +1,14 @@
 package com.akopiants.recycleviewemptyviewactivity.dao
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
 import android.content.ContentValues
+import android.content.Context
 import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
+import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
-import com.akopiants.recycleviewemptyviewactivity.R
+import android.widget.Toast
 import com.akopiants.recycleviewemptyviewactivity.model.GrapeDetail
 import com.akopiants.recycleviewemptyviewactivity.model.GrapeModel
 
@@ -179,6 +179,34 @@ class GrapeDAO(val context: Context) : SQLiteOpenHelper(context, DB_NAME, null, 
             db.close() // Закрываем базу данных
         }
         return successDet
+    }
+
+    fun addGrapes(grapeList: ArrayList<GrapeModel>, grapeDetailList: ArrayList<GrapeDetail>) {
+        val db = this.writableDatabase
+        db.beginTransaction() // Начало транзакции
+
+        try {
+            for (i in grapeList.indices) {
+                val grapeValues = ContentValues()
+                val detailGrapeValues = ContentValues()
+                grapeValues.put(SORT_COL, grapeList[i].sort)
+                grapeValues.put(FAV_COL, grapeList[i].fav)
+                detailGrapeValues.put(DESCRIPTION_COL,grapeDetailList[i].description)
+                detailGrapeValues.put(IMAGE_COL, grapeDetailList[i].image)
+                val insertedId = db.insert(TABLE_NAME, null, grapeValues) // Вставка объекта
+                if (insertedId != -1L) {
+                    // Устанавливаем внешний ключ для таблицы деталей
+                    detailGrapeValues.put(FOREYN_KEY, insertedId)
+                    // Вставляем данные в таблицу деталей
+                    db.insert(TABLE_DETAIL_NAME, null, detailGrapeValues)
+                }
+            }
+            db.setTransactionSuccessful() // Помечаем транзакцию как успешную
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace() // Логируем ошибку
+        } finally {
+            db.endTransaction() // Завершаем транзакцию
+        }
     }
 
     public fun initDB(){
